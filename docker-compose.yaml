@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - '2181:2181'
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - '9092:9092'
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  storage-database:
+    image: postgres
+    container_name: storage-database
+    environment:
+      - POSTGRES_USER=storage-database
+      - POSTGRES_PASSWORD=storage-database
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./storage_data:/var/lib/postgresql/data
+
+  products-database:
+    image: postgres
+    container_name: products-database
+    environment:
+      - POSTGRES_USER=products-database
+      - POSTGRES_PASSWORD=products-database
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./products_data:/var/lib/postgresql/data
+
+  orders-database:
+    image: postgres
+    container_name: orders-database
+    environment:
+      - POSTGRES_USER=orders-database
+      - POSTGRES_PASSWORD=orders-database
+    ports:
+      - '5434:5432'
+    volumes:
+      - ./orders_data:/var/lib/postgresql/data
