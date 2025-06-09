@@ -45,15 +45,15 @@ $ npm install
 $ docker compose up -d
 ```
 
-## Compile and run the project
+## Run the project (cmds for to run each microservice)
 
 ```bash
-# development
-$ npm run start
+$ npm run start:dev api gateway
 
-# watch mode
-$ npm run start:dev
+$ npm run start:dev api orders
 
-# production mode
-$ npm run start:prod
+$ npm run start:dev api products
+
+$ npm run start:dev api storage
+
 ```

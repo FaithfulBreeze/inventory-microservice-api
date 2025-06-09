@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { StorageService } from './storage.service';
 import { CreateStorageEntryDto } from './dto/create-storage-entry.dto';
@@ -16,6 +17,7 @@ export class StorageController {
   constructor(private readonly storageService: StorageService) {}
 
   @Post()
+  @HttpCode(202)
   create(@Body() createStorageEntryDto: CreateStorageEntryDto) {
     return this.storageService.create(createStorageEntryDto);
   }
@@ -31,6 +33,7 @@ export class StorageController {
   }
 
   @Patch(':id')
+  @HttpCode(202)
   update(
     @Param('id') id: string,
     @Body() updateStorageEntryDto: UpdateStorageEntryDto,
@@ -39,6 +42,7 @@ export class StorageController {
   }
 
   @Delete(':id')
+  @HttpCode(202)
   remove(@Param('id') id: string) {
     return this.storageService.remove(+id);
   }

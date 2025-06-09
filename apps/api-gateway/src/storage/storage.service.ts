@@ -23,7 +23,9 @@ export class StorageService {
     this.client.emit('storage.create', {
       data: { createStorageEntryDto },
     });
-    return { message: 'Storage Entry added successfully' };
+    return {
+      message: 'We are processing your request to add a new storage entry!',
+    };
   }
 
   findAll() {
@@ -42,11 +44,15 @@ export class StorageService {
     this.client.emit('storage.update', {
       data: { id, updateStorageEntryDto },
     });
-    return { message: 'Storage Entry updated successfully' };
+    return {
+      message: `We are processing your request to update storage entry #${id}!`,
+    };
   }
 
   remove(id: number) {
     this.client.emit('storage.remove', { data: { id } });
-    return { message: 'Storage Entry removed successfully' };
+    return {
+      message: `We are processing your request to remove storage entry #${id}.`,
+    };
   }
 }

@@ -17,6 +17,7 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
+  @HttpCode(202)
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
   }
@@ -32,12 +33,13 @@ export class ProductsController {
   }
 
   @Patch(':id')
+  @HttpCode(202)
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productsService.update(+id, updateProductDto);
   }
 
   @Delete(':id')
-  @HttpCode(204)
+  @HttpCode(202)
   remove(@Param('id') id: string) {
     return this.productsService.remove(+id);
   }

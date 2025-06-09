@@ -28,7 +28,9 @@ export class OrdersService implements OnModuleInit {
     this.client.emit('orders.create', {
       data: { createOrderDto },
     });
-    return { message: 'Order added successfully' };
+    return {
+      message: `We are processing your request to add a new order!`,
+    };
   }
 
   findAll() {
@@ -47,11 +49,15 @@ export class OrdersService implements OnModuleInit {
     this.client.emit('orders.update', {
       data: { id, updateOrderDto },
     });
-    return { message: 'Order updated successfully' };
+    return {
+      message: `We are processing your request to update orders #${id}!`,
+    };
   }
 
   remove(id: number) {
     this.client.emit('orders.remove', { data: { id } });
-    return { message: 'Order removed successfully' };
+    return {
+      message: `We are processing your request to update order #${id}.`,
+    };
   }
 }

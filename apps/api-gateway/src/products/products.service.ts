@@ -25,7 +25,9 @@ export class ProductsService implements OnModuleInit {
 
   create(createProductDto: CreateProductDto) {
     this.client.emit('products.create', { data: { createProductDto } });
-    return { message: 'Product added successfully' };
+    return {
+      message: `We are processing your request to add a new product!`,
+    };
   }
 
   findAll() {
@@ -44,11 +46,15 @@ export class ProductsService implements OnModuleInit {
     this.client.emit('products.update', {
       data: { id, updateProductDto },
     });
-    return { message: 'Product updated successfully' };
+    return {
+      message: `We are processing your request to update product #${id}!`,
+    };
   }
 
   remove(id: number) {
     this.client.emit('products.remove', { data: { id } });
-    return { message: 'Product removed successfully' };
+    return {
+      message: `We are processing your request to remove product #${id}.`,
+    };
   }
 }

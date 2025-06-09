@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -16,6 +17,7 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
+  @HttpCode(202)
   create(@Body() createOrderDto: CreateOrderDto) {
     return this.ordersService.create(createOrderDto);
   }
@@ -31,6 +33,7 @@ export class OrdersController {
   }
 
   @Patch(':id/ship')
+  @HttpCode(202)
   updateOrderStatusToShipped(@Param('id') id: string) {
     const updateOrderDto = new UpdateOrderDto();
     updateOrderDto.status = 'SHIPPED';
@@ -38,6 +41,7 @@ export class OrdersController {
   }
 
   @Patch(':id/confirm')
+  @HttpCode(202)
   updateOrderStatusToDelivered(@Param('id') id: string) {
     const updateOrderDto = new UpdateOrderDto();
     updateOrderDto.status = 'DELIVERED';
@@ -45,6 +49,7 @@ export class OrdersController {
   }
 
   @Delete(':id')
+  @HttpCode(202)
   remove(@Param('id') id: string) {
     return this.ordersService.remove(+id);
   }
